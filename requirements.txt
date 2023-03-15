@@ -1,4 +1,6 @@
 black
+networkx
+numpy
 pre-commit
 pygraphblas
 pytest

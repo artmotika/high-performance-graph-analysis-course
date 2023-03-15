@@ -1,0 +1,4 @@
+digraph graph_loop {
+    a -> b;
+    b -> a;
+}
