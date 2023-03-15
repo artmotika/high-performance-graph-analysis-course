@@ -1,4 +1,3 @@
-import array
 import pygraphblas as gb
 import numpy as np
 
