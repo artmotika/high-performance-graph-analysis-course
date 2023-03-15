@@ -1,5 +1,6 @@
 import pytest
 import pygraphblas as gb
+import project
 
 
 def test_bfs_loop():
