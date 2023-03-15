@@ -1,7 +1,7 @@
 import networkx as nx
 import pygraphblas as gb
 
-__all__ = ["read_got", "digraph_to_matrix_gb"]
+__all__ = ["read_dot", "digraph_to_matrix_gb"]
 
 
 def read_dot(file_path: str) -> nx.DiGraph:
