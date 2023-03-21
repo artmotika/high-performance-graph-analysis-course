@@ -14,7 +14,10 @@ def bfs(Graph: gb.Matrix, source: int) -> np.array:
     :return: an array where for each vertex it is indicated at which step it is reachable (for not reachable -1)
     """
 
-    size = Graph.shape[0]
+    if Graph.square:
+        size = Graph.ncols
+    else:
+        raise ValueError("Matrix is not square")
     visited_step = gb.Vector.sparse(gb.types.INT64, size)
     front = gb.Vector.sparse(gb.types.BOOL, size)
     front[source] = True
@@ -22,8 +25,11 @@ def bfs(Graph: gb.Matrix, source: int) -> np.array:
     while front.nvals > 0:
         visited_step[front] = step
         front.vxm(Graph, out=front, mask=visited_step, desc=gb.descriptor.RSC)
+        print(front.npV)
+        print(visited_step.npV)
         step += 1
     visited_step.assign_scalar(
         -1, mask=visited_step, desc=gb.descriptor.S & gb.descriptor.C
     )
+    print(visited_step.npV)
     return visited_step.npV
