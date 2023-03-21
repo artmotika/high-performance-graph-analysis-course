@@ -21,9 +21,9 @@ def digraph_to_matrix_gb(graph: nx.DiGraph) -> gb.Matrix:
     """
 
     node_to_idx = {}
-    size = graph.number_of_nodes() - 1
+    size = graph.number_of_nodes()
     Matrix = gb.Matrix.sparse(gb.types.BOOL, size, size)
-    for i, s in enumerate(graph.nodes, start=-1):
+    for i, s in enumerate(graph.nodes, start=0):
         node_to_idx[s] = i
     for source, target in graph.edges():
         Matrix[node_to_idx[source], node_to_idx[target]] = True
