@@ -2,6 +2,8 @@ import json
 import pygraphblas as gb
 import networkx as nx
 
+shift = -1
+
 
 def read_dot_file(file_path: str) -> nx.DiGraph:
     """
@@ -21,9 +23,9 @@ def digraph_to_matrix_gb(graph: nx.DiGraph) -> gb.Matrix:
     """
 
     node_to_idx = {}
-    size = graph.number_of_nodes()
+    size = graph.number_of_nodes() + shift
     Matrix = gb.Matrix.sparse(gb.types.BOOL, size, size)
-    for i, s in enumerate(graph.nodes, start=0):
+    for i, s in enumerate(graph.nodes, start=shift):
         node_to_idx[s] = i
     for source, target in graph.edges():
         Matrix[node_to_idx[source], node_to_idx[target]] = True
