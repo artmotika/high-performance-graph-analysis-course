@@ -1,5 +1,5 @@
 black
-networkx
+networkx==3.0
 numpy
 pre-commit
 pydot
