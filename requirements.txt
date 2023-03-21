@@ -1,5 +1,8 @@
 black
+networkx
+numpy
 pre-commit
+pydot
 pygraphblas
 pytest
 scipy
