@@ -2,6 +2,8 @@ import json
 import pygraphblas as gb
 import networkx as nx
 
+__all__ = ["read_dot_file", "digraph_to_matrix_gb", "load_test_json"]
+
 shift = -1
 
 

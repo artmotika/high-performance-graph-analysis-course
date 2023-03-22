@@ -16,16 +16,11 @@ def test_msbfs_parents_json1():
     matrix, source, expected = test_data_json[0]
     parents = msbfs_parents(matrix, source)
     keys = []
-    expected_keys = expected.keys()
+    expected_keys = list(expected.keys())
     for i in range(len(parents)):
         keys.append(str(parents[i][0]))
-    for key in expected_keys:
-        if key not in keys:
-            assert False
-    for key in keys:
-        if key not in expected_keys:
-            assert False
-
+    if expected_keys != keys:
+        assert False
     for i in range(len(parents)):
         if not (np.array_equal(parents[i][1], expected[str(parents[i][0])])):
             assert False
@@ -36,16 +31,11 @@ def test_msbfs_parents_json2():
     matrix, source, expected = test_data_json[1]
     parents = msbfs_parents(matrix, source)
     keys = []
-    expected_keys = expected.keys()
+    expected_keys = list(expected.keys())
     for i in range(len(parents)):
         keys.append(str(parents[i][0]))
-    for key in expected_keys:
-        if key not in keys:
-            assert False
-    for key in keys:
-        if key not in expected_keys:
-            assert False
-
+    if expected_keys != keys:
+        assert False
     for i in range(len(parents)):
         if not (np.array_equal(parents[i][1], expected[str(parents[i][0])])):
             assert False
