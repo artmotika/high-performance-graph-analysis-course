@@ -34,9 +34,7 @@ def digraph_to_matrix_gb(graph: nx.DiGraph) -> gb.Matrix:
 
 
 def load_test_json(path: str):
-    matrix = []
-    source = []
-    expected = []
+    matrix, source, expected = [], [], []
 
     with open(path, "r") as file:
         json_dict = json.load(file)
@@ -44,9 +42,7 @@ def load_test_json(path: str):
 
         for data in data_chunks:
             matrix.append(gb.Matrix.from_lists(*data["matrix"], V=True, typ=gb.BOOL))
-
             source.append(data["source"])
-
             expected.append(data["expected"])
 
     return list(zip(matrix, source, expected))
