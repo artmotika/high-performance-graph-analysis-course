@@ -1,9 +1,7 @@
 import pathlib
 from project.graph_utils import load_test_json, read_dot_file, digraph_to_matrix_gb
-from project.bfs import bfs_level, msbfs_parents
+from project.bfs import msbfs_parents
 import numpy as np
-
-import pygraphblas as gb
 
 path_json = pathlib.Path(__file__).parent / "data" / "test_msbfs_parents.json"
 test_data_json = load_test_json(path_json)
