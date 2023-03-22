@@ -30,7 +30,7 @@ def bfs_level(Graph: gb.Matrix, source: int) -> np.array:
     return visited_step.npV
 
 
-def msbfs_parents(Graph: gb.Matrix, source: list[int]) -> list[np.array]:
+def msbfs_parents(Graph: gb.Matrix, source: list[int]) -> list[tuple[int, np.array]]:
     """
     Multy source bfs implementation on matrices
 
@@ -39,7 +39,7 @@ def msbfs_parents(Graph: gb.Matrix, source: list[int]) -> list[np.array]:
     front: the vector of vertices reachable after the n-th iteration of bfs
     parents: array (multy source) of arrays of the parent nodes while bfs where did node with
      index i come from from array[i] in bfs
-    :return: dict of pairs: starting vertex, and array (parents) where for the starting vertex itself,
+    :return: list of pairs: starting vertex, and array (parents) where for the starting vertex itself,
      take this value equal to -1, and for unreachable vertices, take it equal to -2
     """
 
@@ -53,9 +53,10 @@ def msbfs_parents(Graph: gb.Matrix, source: list[int]) -> list[np.array]:
     front = gb.Matrix.sparse(gb.types.INT64, n_ms, size)
     parents = gb.Matrix.sparse(gb.types.INT64, n_ms, size)
     for i in range(n_ms):
+        v = source[i]
         idx.assign_row(i, idx_row)
-        front[i, source[i]] = source[i]
-        parents[i, source[i]] = -1
+        front[i, v] = v
+        parents[i, v] = -1
     while True:
         front.mxm(
             Graph,
@@ -63,10 +64,10 @@ def msbfs_parents(Graph: gb.Matrix, source: list[int]) -> list[np.array]:
             out=front,
             mask=parents,
             desc=gb.descriptor.RSC,
-        )  # min.first
+        )
         if front.nvals == 0:
             break
         parents += front
         front.assign_matrix(idx, mask=front, desc=gb.descriptor.S)
     parents.assign_scalar(-2, mask=parents, desc=gb.descriptor.S & gb.descriptor.C)
-    return [parents[i].npV for i in range(n_ms)]
+    return [(source[i], parents[i].npV) for i in range(n_ms)]
