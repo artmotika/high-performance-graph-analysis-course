@@ -43,7 +43,6 @@ def triangle_count(Graph: gb.Matrix) -> np.array:
         mask=Graph,
         desc=gb.descriptor.RS,
     )
-    result_mtx.assign_scalar(0, mask=result_mtx, desc=gb.descriptor.S & gb.descriptor.C)
     result_vector = result_mtx.reduce_vector().apply_second(gb.types.INT64.DIV, 2)
     result_vector.assign_scalar(
         0, mask=result_vector, desc=gb.descriptor.S & gb.descriptor.C
