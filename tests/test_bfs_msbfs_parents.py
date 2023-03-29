@@ -11,7 +11,9 @@ path_dot2 = pathlib.Path(__file__).parent / "data" / "test_msbfs_parents2.dot"
 
 
 def test_msbfs_parents_json1():
-    matrix, source, expected = test_data_json[0]
+    matrix, expected = test_data_json[0][0]
+    extra = test_data_json[1]
+    source = extra["source"][0]
     parents = msbfs_parents(matrix, source)
     keys = []
     expected_keys = list(expected.keys())
@@ -26,7 +28,9 @@ def test_msbfs_parents_json1():
 
 
 def test_msbfs_parents_json2():
-    matrix, source, expected = test_data_json[1]
+    matrix, expected = test_data_json[0][1]
+    extra = test_data_json[1]
+    source = extra["source"][1]
     parents = msbfs_parents(matrix, source)
     keys = []
     expected_keys = list(expected.keys())
