@@ -9,8 +9,8 @@ def triangle_count_cohen(Graph: gb.Matrix) -> int:
     size = check_matrix_graph_size(Graph)
     Graph.assign_scalar(1, mask=Graph, desc=gb.descriptor.S)
     result_mtx = gb.Matrix.sparse(gb.types.INT64, size, size)
-    lower_mtx = Graph.tril(-1)
-    upper_mtx = Graph.triu(1)
+    lower_mtx = Graph.tril()
+    upper_mtx = Graph.triu()
     lower_mtx.mxm(
         upper_mtx,
         out=result_mtx,
@@ -24,7 +24,7 @@ def triangle_count_sandia(Graph: gb.Matrix) -> int:
     size = check_matrix_graph_size(Graph)
     Graph.assign_scalar(1, mask=Graph, desc=gb.descriptor.S)
     result_mtx = gb.Matrix.sparse(gb.types.INT64, size, size)
-    lower_mtx = Graph.tril(-1)
+    lower_mtx = Graph.tril()
     lower_mtx.mxm(
         lower_mtx,
         out=result_mtx,
