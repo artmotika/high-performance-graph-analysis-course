@@ -34,7 +34,7 @@ def bellman_ford(Graph: gb.Matrix, source: int) -> np.array:
         desc=gb.descriptor.R,
     )
     if temp_dist.isne(dist):
-        raise ValueError("Matrix (graph) has loops with negative numbers")
+        raise ValueError("Matrix (graph) has negative loop")
 
     dist.assign_scalar(float("inf"), mask=dist, desc=gb.descriptor.S & gb.descriptor.C)
     return dist.npV
@@ -70,7 +70,7 @@ def msbellman_ford(Graph: gb.Matrix, source: list[int]) -> list[tuple[int, np.ar
         desc=gb.descriptor.R,
     )
     if temp_dist.isne(dist):
-        raise ValueError("Matrix (graph) has loops with negative numbers")
+        raise ValueError("Matrix (graph) has negative loop")
 
     dist.assign_scalar(float("inf"), mask=dist, desc=gb.descriptor.S & gb.descriptor.C)
     return [(source[i], dist[i].npV) for i in range(n_ms)]
@@ -94,7 +94,7 @@ def floyd_warshall(Graph: gb.Matrix) -> list[tuple[int, np.array]]:
         col.mxm(row, semiring=gb.FP64.min_plus, out=result_mtx, accum=gb.FP64.min)
 
     if result_mtx.diag().reduce_float(accum=gb.FP64.min) < 0:
-        raise ValueError("Matrix (graph) has loops with negative numbers")
+        raise ValueError("Matrix (graph) has negative loop")
 
     result_mtx.assign_scalar(
         float("inf"), mask=result_mtx, desc=gb.descriptor.S & gb.descriptor.C
