@@ -1,6 +1,6 @@
 import pygraphblas as gb
 import numpy as np
-from project.graph_utils import check_matrix_graph_size
+from project.graph_utils import check_matrix_graph_size_and_type
 
 __all__ = ["bfs_level", "msbfs_parents"]
 
@@ -15,9 +15,9 @@ def bfs_level(Graph: gb.Matrix, source: int) -> np.array:
     :return: an array where for each vertex it is indicated at which step it is reachable (for not reachable -1)
     """
 
-    size = check_matrix_graph_size(Graph)
-    visited_step = gb.Vector.sparse(gb.types.INT64, size)
-    front = gb.Vector.sparse(gb.types.BOOL, size)
+    size = check_matrix_graph_size_and_type(Graph, gb.BOOL)
+    visited_step = gb.Vector.sparse(gb.INT64, size)
+    front = gb.Vector.sparse(gb.BOOL, size)
     front[source] = True
     step = 0
     while front.nvals > 0:
@@ -49,12 +49,12 @@ def msbfs_parents(Graph: gb.Matrix, source: list[int]) -> list[tuple[int, np.arr
      take this value equal to -1, and for unreachable vertices, take it equal to -2
     """
 
-    size = check_matrix_graph_size(Graph)
+    size = check_matrix_graph_size_and_type(Graph, gb.BOOL)
     n_ms = len(source)
     idx_row = gb.Vector.from_list(range(size))
-    idx = gb.Matrix.sparse(gb.types.INT64, n_ms, size)
-    front = gb.Matrix.sparse(gb.types.INT64, n_ms, size)
-    parents = gb.Matrix.sparse(gb.types.INT64, n_ms, size)
+    idx = gb.Matrix.sparse(gb.INT64, n_ms, size)
+    front = gb.Matrix.sparse(gb.INT64, n_ms, size)
+    parents = gb.Matrix.sparse(gb.INT64, n_ms, size)
     for i in range(n_ms):
         v = source[i]
         idx.assign_row(i, idx_row)
